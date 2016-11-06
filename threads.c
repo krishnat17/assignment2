@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+//but comment now tho
+
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
