@@ -1,3 +1,9 @@
+/*
+Krishna Thevathasan
+212946893
+krishnat@my.yorku.ca
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -5,7 +11,7 @@
 
 int number_of_servers = 2;
 int number_of_clients = 2;
-int totalTicks = 1;
+int totalTicks = 1000;
 
 double muX = 0.01;
 double *mu = &muX;
@@ -96,7 +102,7 @@ void *server_sim(void *mu) {
 
       if(qIsEmpty() == 0) {
         tempRand = RNG();
-        printf("%f\n",tempRand);
+        printf("Server's random number is %f\n",tempRand);
 
         if(tempRand < deathrate){
           jobExecutingBool = 0;
@@ -134,7 +140,7 @@ void *client_sim(void *lambda) {
 
   while (currentTick < totalTicks) {
     tempRand = RNG();
-    printf("%f\n",tempRand);
+    printf("Client's random number is %f\n",tempRand);
 
     if(tempRand < birthrate) {
       pthread_mutex_lock(&client_mutex);
@@ -152,10 +158,9 @@ void *client_sim(void *lambda) {
 
 void *clock_sim(void *unused) {
 
-  currentTick = 0;
+  currentTick = 1;
 
   while(currentTick < totalTicks) {
-    sleep(5);
     pthread_cond_broadcast(&waiting_for_tick_cond);
     currentTick++;
     printf("--------------Current tick is %d\n",currentTick);
